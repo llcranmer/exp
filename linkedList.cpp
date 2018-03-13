@@ -19,7 +19,14 @@ class linkedList {
 		linkedList(){head = NULL;tail = NULL;}
 	
 	void createNode(std::string name, std::string type);
- 	void print();
+ 	
+	void insertStart(std::string name, std::string type); 
+
+	void insertEnd(std::string name, std::string type); 
+
+	void insertPosition(int position,std::string name, std::string type); 
+
+	void print();
 	
 	private:
 		Node *head, *tail;
@@ -37,6 +44,10 @@ int main(){
  pokemon.createNode("Charmander","fire");
  pokemon.createNode("Squirtle", "water");
  pokemon.createNode("Bulbasaur","grass");
+ pokemon.print();
+ pokemon.insertStart("Ivysaur", "grass");
+ pokemon.insertEnd("Charizard", "fire");
+ pokemon.insertPosition(1, "mew", "psychic");
  pokemon.print();
  return 0; 
 }
@@ -78,16 +89,63 @@ void linkedList::print(){
 	// walk from the beginning of the list to the end of the list.
 	std::cout <<"Current Pokemon";
 	while(temp!=NULL){
-		std::cout <<"[ "<<temp->name <<" | "<< temp->type <<" ]" << "->"; 
+		std::cout <<"["<<temp->name <<"|"<< temp->type <<"]" << "->"; 
 		temp = temp->next; // walk to the next node
 	}
 
 	std::cout << " NULL " << '\n';
 }
 
+void linkedList::insertStart(std::string name, std::string type){
+	
+	Node *temp = new Node; 
+	temp->name = name; 
+	temp->type = type; 
 
+	// making temp the new head
+	temp->next = head;
+	// copying the contents of temp into head 
+	head = temp; 
+}
 
+void linkedList::insertEnd(std::string name, std::string type) { 
+	
+	Node *temp = new Node; 
+	temp->name = name; 
+	temp->type = type; 
+	temp->next = NULL; 
+	
+	if(head == NULL){
 
+		head = temp;
+		tail = temp; 
+		temp = NULL; 
 
+	} else {
+
+		tail->next = temp; 
+		tail = temp; 	
+	}
+}
+
+void linkedList::insertPosition(int position, std::string name, std::string type ){
+	
+	Node *temp = new Node; 
+	Node *prev = new Node; 
+	Node *curr = new Node;
+	curr = head; 
+
+	for(int i = 0; i < position; ++i){
+		prev = curr; 
+		curr = curr->next;
+
+	}
+	
+	temp->name = name; 
+	temp->type = type; 
+	prev->next = temp; 
+	temp->next = curr; 
+
+}
 
 
