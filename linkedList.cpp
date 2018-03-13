@@ -19,7 +19,8 @@ class linkedList {
 		linkedList(){head = NULL;tail = NULL;}
 	
 	void createNode(std::string name, std::string type);
-
+ 	void print();
+	
 	private:
 		Node *head, *tail;
 
@@ -32,7 +33,11 @@ class linkedList {
 int main(){
  
  linkedList pokemon;
- pokemon.createNode("pikachu", "electric");
+ pokemon.createNode("Pikachu", "electric");
+ pokemon.createNode("Charmander","fire");
+ pokemon.createNode("Squirtle", "water");
+ pokemon.createNode("Bulbasaur","grass");
+ pokemon.print();
  return 0; 
 }
 
@@ -64,7 +69,21 @@ void linkedList::createNode(std::string name, std::string type) {
 
 }
 
+void linkedList::print(){
 
+	// Create a temporary node to store the contents to be printed
+	Node *temp = new Node; 
+	temp = head; 
+
+	// walk from the beginning of the list to the end of the list.
+	std::cout <<"Current Pokemon";
+	while(temp!=NULL){
+		std::cout <<"[ "<<temp->name <<" | "<< temp->type <<" ]" << "->"; 
+		temp = temp->next; // walk to the next node
+	}
+
+	std::cout << " NULL " << '\n';
+}
 
 
 
